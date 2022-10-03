@@ -56,3 +56,10 @@ Running 30s test @ http://127.0.0.1:8090
 Requests/sec:    751.53
 Transfer/sec:      1.64MB
 ```
+
+## Related Projects
+
+- Nginx Module NGX-PHP: [https://github.com/rryqszq4/ngx-php](https://github.com/rryqszq4/ngx-php)
+- Nginx Docker Playground: [https://github.com/nginx-with-docker/nginx-docker-playground](https://github.com/nginx-with-docker/nginx-docker-playground)
+- SVG Icons: [Info](https://www.iconfont.cn/collections/detail?cid=30328) [Logo](https://www.iconfont.cn/collections/detail?cid=36911)
+- JavaScript "Timeago": [twas](https://github.com/vutran/twas)
