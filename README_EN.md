@@ -42,7 +42,7 @@ Requests/sec:   1020.65
 Transfer/sec:      2.16MB
 ```
 
-### php:8.1.10-apache-buster
+### php:8.1.10-apache-buster (`opcache.enable=1`)
 
 ```bash
 wrk -t16 -c 100 -d 30s http://127.0.0.1:8090     
