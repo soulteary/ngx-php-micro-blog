@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+
+  talk:
+    image: soulteary/ngx-php:8
+    restart: always
+    ports:
+      - 8090:80
+    volumes:
+      - ./app/data:/usr/share/nginx/html/data:rw
+      - ./app/index.php:/usr/share/nginx/html/index.php:ro
+      - ./app/templates:/usr/share/nginx/html/templates:ro
+      - ./app/assets:/usr/share/nginx/html/assets:ro
