@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+
+  talk:
+    image: php:8.1.10-apache-buster
+    restart: always
+    ports:
+      - 8090:80
+    volumes:
+      - ./app:/var/www/html/
+      - ./app/templates:/usr/share/nginx/html/templates:rw
+      - ./app/data:/usr/share/nginx/html/data:rw
+

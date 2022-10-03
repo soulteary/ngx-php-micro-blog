@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <title>Whisper</title>
+</head>
+<body>
+  <div id="root">
+
+    <div class="container" id="brand-container">
+      <div class="row">
+        <div class="py-4 text-center">
+          <h2>
+            <span>Whisper</span>
+            <img class="logo" src="assets/img/logo.svg" alt="" width="72" height="57" />
+          </h2>
+          <p class="lead">a simplest example.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" id="post-container">
+      <div class="row">
+        <div class="col-xs-12">
+          <h4 class="mb-3"># Post a Whisper</h4>
+          <form class="mb-3" action="/" method="post" novalidate >
+            <div class="row g-3">
+              <div class="col-12">
+                <textarea class="form-control mb-2" placeholder="enter content here..." name="content" rows="4" required></textarea>
+                <button class="w-100 btn btn-primary" type="submit">Post</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" id="whispers-container">
+      <?php if(!$this->data['pagination']['hide']):?>
+      <div class="row row-cols-sm-auto">
+        <div class="col-sm-9">
+          <hr class="my-3 w-100" />
+        </div>
+        <div class="col-sm-3">
+          <div aria-label="Page navigation" id="pagination">
+            <ul class="pagination justify-content-center pagination-sm">
+              <?php if($this->data['pagination']['prev']==0):?>
+              <li class="page-item disabled">
+                <a class="page-link">Previous</a>
+              </li>
+              <?php else:?>
+              <li class="page-item">
+                <a class="page-link" href="?p=<?=$this->data['pagination']['prev']?>">Previous</a>
+              </li>
+              <?php endif;?>
+              <?php if($this->data['pagination']['next']==0):?>
+              <li class="page-item disabled">
+                <a class="page-link">Next</a>
+              </li>
+              <?php else:?>
+              <li class="page-item">
+                <a class="page-link" href="?p=<?=$this->data['pagination']['next']?>">Next</a>
+              </li>
+              <?php endif;?>
+            </ul>
+          </div>
+        </div>        
+      </div>
+      <?php endif;?>
+
+      <?php if(sizeof($this->data['whispers'])>0):?>      
+      <div class="row row-cols-sm-auto">
+        <h4 class="col-sm-12">
+          <span># List</span>
+          <?php if(!$this->data['pagination']['hide']):?>
+          <span class="text-muted" id="page-info">Page #<?=$this->data['pagination']['page']?> / <?=$this->data['pagination']['last']?></span>
+          <?php endif;?>
+        </h4>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <ul class="list-group w-auto">
+            <?php foreach ($this->data['whispers'] as $whisper): ?>
+            <li class="list-group-item d-flex gap-3 py-3" aria-current="true">
+              <img src="assets/img/icon.svg" width="32" height="32" class="rounded-circle flex-shrink-0">
+              <div class="d-flex gap-2 w-100 justify-content-between">
+                <div>
+                  <h6 class="mb-0 whisper-content"><?=$whisper['content']?></h6>
+                  <p class="mb-0 opacity-75"><?=$whisper['date']?></p>
+                </div>
+                <small class="opacity-50 text-nowrap timeago" data-value="<?=$whisper['date']?>"></small>
+              </div>
+            </li>
+            <?php endforeach; ?>
+          </ul>
+        </div>
+      </div>
+      <?php endif;?>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="my-3 pt-3 text-muted text-center text-small">
+          <ul class="list-inline mb-1">
+            <li class="list-inline-item">&copy; 2007–<?=date('Y');?> @soulteary: <a href="https://soulteary.com/" target="_blank">Blog</a></li>
+            <li class="list-inline-item"><a href="https://www.zhihu.com/people/soulteary" target="_blank">Zhihu</a></li>
+            <li class="list-inline-item"><a href="https://weibo.com/u/1220149481" target="_blank">Weibo</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+#root {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+#brand-container .logo {
+  width: 40px;
+  top: 0;
+  position: absolute;
+}
+
+#whispers-container .whisper-content {
+  white-space: pre;
+}
+
+#whispers-container #pagination {
+  float: right;
+}
+
+#whispers-container #page-info {
+  float: right;
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+#post-container textarea {
+  resize: none;
+}
