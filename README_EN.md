@@ -12,5 +12,14 @@ Built on the official Nginx container, the base image is only 12MB.
 
 ![](./screenshots/list.png)
 
-![](./screenshots/post.png)
+## Usage
 
+start docker container with compose:
+
+```bash
+docker-compose -f docker-compose.ngx-php.yml up
+```
+
+open browser：`http://localhost:8090`
+
+![](./screenshots/post.png)
