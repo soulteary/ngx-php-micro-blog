@@ -14,7 +14,13 @@ Built on the official Nginx container, the base image is only 12MB.
 
 ## Usage
 
-start docker container with compose:
+just run the following command:
+
+```bash
+docker run --rm -it -v `pwd`/data:/usr/share/nginx/html/data:rw -p 8090:80 soulteary/ngx-php:8-microblog
+```
+
+or start docker container with compose:
 
 ```bash
 docker-compose -f docker-compose.ngx-php.yml up

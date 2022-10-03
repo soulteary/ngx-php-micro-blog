@@ -17,6 +17,12 @@
 启动容器：
 
 ```bash
+docker run --rm -it -v `pwd`/data:/usr/share/nginx/html/data:rw -p 8090:80 soulteary/ngx-php:8-microblog
+```
+
+或者使用 `docker compose`:
+
+```bash
 docker-compose -f docker-compose.ngx-php.yml up
 ```
 
