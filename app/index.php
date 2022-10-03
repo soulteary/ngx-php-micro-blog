@@ -48,16 +48,59 @@ if (!class_exists('Template')) {
 if (!class_exists('Whisper')) {
     class Whisper
     {
+        private function getArgs($key, $method)
+        {
+            $dataSource = null;
+            $isNginxEnv = false;
+
+            if ($method == 'GET') {
+                if (function_exists('ngx_query_args')) {
+                    $dataSource = ngx_query_args();
+                    $isNginxEnv = true;
+                } else {
+                    $dataSource = $_GET;
+                }
+            } else {
+                if (function_exists('ngx_post_args')) {
+                    $dataSource = ngx_post_args();
+                    $isNginxEnv = true;
+                } else {
+                    $dataSource = $_POST;
+                }
+            }
+
+            if (!isset($dataSource[$key])) {
+                return "";
+            }
+
+            return $isNginxEnv ? trim(urldecode($dataSource[$key])) : trim($dataSource[$key]);
+        }
+
+        private function redir($url)
+        {
+            if (function_exists('ngx_header_set')) {
+                ngx_header_set("Location", $url);
+                ngx_exit(NGX_HTTP_MOVED_TEMPORARILY);
+            } else {
+                header("Location: " . $url);
+            }
+        }
+
         public function __construct()
         {
-            if (empty($_POST['content'])) {
+            $content = $this->getArgs('content', 'POST');
+            if (empty($content)) {
                 $start_time = microtime(true);
                 $page = 1;
-                if (!empty($_GET['p'])) {
-                    $page = (int) filter_var($_GET['p'], FILTER_SANITIZE_NUMBER_INT);
+
+                $page = $this->getArgs('p', 'GET');
+                if (!empty($page)) {
+                    $page = (int) filter_var($page, FILTER_SANITIZE_NUMBER_INT);
                     if ($page < 1) {
                         $page = 1;
                     }
+                } else {
+                    $page = 1;
                 }
 
                 $tpl = new Template();
@@ -68,15 +111,9 @@ if (!class_exists('Whisper')) {
                 ob_end_flush();
 
                 $end_time = microtime(true);
-                echo "\n<!-- " . round($end_time - $start_time, 3) . "s -->";
+                echo "\n<!-- program processing time: " . round($end_time - $start_time, 3) . "s -->";
             } else {
-
-                $content = trim($_POST['content']);
-                if (strlen($content) == 0) {
-                    echo ERROR_IS_EMPTY;
-                    exit;
-                }
-                $content = (string) filter_var($content, FILTER_SANITIZE_SPECIAL_CHARS);
+                $content = htmlentities((string) filter_var($content, FILTER_SANITIZE_SPECIAL_CHARS));
                 $this->postWhisper($content);
             }
         }
@@ -89,7 +126,7 @@ if (!class_exists('Whisper')) {
             $content = $date . "\n" . $content . "\n";
             fwrite($file, $content);
             fclose($file);
-            header("location: /");
+            $this->redir("/");
         }
 
         private function loadData($page)
@@ -134,7 +171,7 @@ if (!class_exists('Whisper')) {
                 }
                 $data = array(
                     'date' => $date,
-                    'content' => $content,
+                    'content' => html_entity_decode($content),
                 );
                 $result['whispers'][] = $data;
             }
