@@ -11,4 +11,5 @@ services:
       - ./app:/var/www/html/
       - ./app/templates:/usr/share/nginx/html/templates:rw
       - ./app/data:/usr/share/nginx/html/data:rw
+      - ./conf/php.ini:/usr/local/etc/php/php.ini:ro
 
