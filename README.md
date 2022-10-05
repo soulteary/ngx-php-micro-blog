@@ -1,6 +1,6 @@
 # Nginx NGX-PHP Module Demo (MicroBlog)
 
-[English Ver](./README_EN.md)
+[English Ver](./README_EN.md) / [中文教程](https://soulteary.com/2022/10/05/nginx-black-magic-low-cost-high-performance-applications-using-ngx-php-modules.html)
 
 使用 Nginx 模块 NGX-PHP 实现的一个简单的微博应用 Demo，不依赖 PHP-FPM 等技术栈，高效、安全、可靠。
 
